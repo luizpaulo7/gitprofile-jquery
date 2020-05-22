@@ -1,21 +1,23 @@
 $(document).ready(function () {
 
-    $.get({
-        url: 'https://api.github.com/users/luizpaulo7'
-    }).done(response => {
+    $.ajax({
+        url: 'https://api.github.com/users/luizpaulogroup',
+        success: response => {
+            
+            var html;
 
-        var contentHtml = '';
+            html += `<img src="${response.avatar_url}">`;
+            html += `<h1>${response.name}</h1>`;
+            html += `<p><a href="${response.html_url}">${response.html_url}</a></p>`;
+            html += `<p>location: ${response.location}</p>`;
+            html += `<div class="foll">`;
+            html += `<p>seguidores: ${response.followers}</p>`;
+            html += `<p>seguindo: ${response.following}</p>`;
+            html += `</div>`;
 
-        contentHtml += '<img src="' + response.avatar_url + '">';
-        contentHtml += '<h1>' + response.name + '</h1>';
-        contentHtml += '<p><a href="' + response.html_url + '">' + response.html_url + '</a></p>';
-        contentHtml += '<p>location: ' + response.location + '</p>';
-        contentHtml += '<div class="foll">';
-        contentHtml += '<p>seguidores: ' + response.followers + '</p>';
-        contentHtml += '<p>seguindo: ' + response.following + '</p>';
-        contentHtml += '</div>';
-
-        $('.content').append(contentHtml);
+            $('.content').append(html);
+            
+        }
     });
 
 });
